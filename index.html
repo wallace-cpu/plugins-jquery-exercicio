@@ -60,19 +60,61 @@
             <button type="submit">Enviar</button>
         </form>
     </div>
-    <script src="./js/jquery.mask.min.js"></script>
-    <script src="./js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="./js/jquery.mask.min.js"></script>
+    <script src="./js/jquery.validate.min.js"></script>
     <script src="./js/messages_pt_BR.min.js"></script>
     <script src="./js/main.js"></script>
     <script>
         $(document).ready(function () {
-            $('#carousel').slick({
+            $('#carousel-imagens').slick({
                 autoplay: true,
                 arrows: false
             })
+            $("#telefone").mask("(00) 0 0000-0000");
+            $("#cpf").mask("000.000.000-00");
+            $("#cep").mask("00000-000");
+
+            $("form").validate({
+
+                rules: {
+                nome: { required: true },
+                email: { required: true, email: true },
+                telefone: { required: true },
+                cpf: { required: true },
+                endereco: { required: true },
+                cep: { required: true },
+                },
+            
+                messages: {
+
+                nome: "Insira seu nome completo",
+                email: "Insira um email valido",
+                telefone: "Insira um numero de celular",
+                cpf: "Coloque seu CPF",
+                endereco: "Insira seu endenço completo",
+                cep: "Insira o CEP de sua rua",
+                },
+                submitHandler: function (form) {
+                alert(`Cadastro concluído com sucesso!`);
+
+                nome.value = "";
+                email.value = "";
+                telefone.value = "";
+                cpf.value = "";
+                endereco.value = "";
+                cep.value = "";
+                },
+
+                invalidHandler: function (evento, validador) {
+                let camposIncorretos = validador.numberOfInvalids();
+                if (camposIncorretos) {
+                    alert(`Exitem ${camposIncorretos} campos incorretos ou vazios`);
+                }
+                },
+            });
         })
     </script>
 </body>
